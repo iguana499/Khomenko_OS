@@ -29,7 +29,7 @@ public class Kernel {
 		return result;
 	}
 	public void execute(int index) {
-		if (index<callsList.size()) {
+		if (index<callsList.size()||index>0) {
 		try {
 			String curArgs = "";
 			for (int i = 0; i < callsList.get(index).getArgsListSize(); i++) {
@@ -41,14 +41,14 @@ public class Kernel {
 			if (curArgs.equals(kernelArgs)) 
 				callsList.get(index).run();
 			else 
-				System.out.println("Àðãóìåíòû íå ñîâïàäàþò, íåîáõîäèìûå àðãóìåíòû :");
+				System.out.println("Ã€Ã°Ã£Ã³Ã¬Ã¥Ã­Ã²Ã» Ã­Ã¥ Ã±Ã®Ã¢Ã¯Ã Ã¤Ã Ã¾Ã², Ã­Ã¥Ã®Ã¡ÃµÃ®Ã¤Ã¨Ã¬Ã»Ã¥ Ã Ã°Ã£Ã³Ã¬Ã¥Ã­Ã²Ã» :");
 				System.out.println(kernelArgs);
 				
 		} catch(Exception ex) {
 			ex.printStackTrace();
-			System.out.println("Êîëè÷åñòâî àðãóìåíòîâ íåäîñòàòî÷íî");
+			System.out.println("ÃŠÃ®Ã«Ã¨Ã·Ã¥Ã±Ã²Ã¢Ã® Ã Ã°Ã£Ã³Ã¬Ã¥Ã­Ã²Ã®Ã¢ Ã­Ã¥Ã¤Ã®Ã±Ã²Ã Ã²Ã®Ã·Ã­Ã®");
 		}
-	} else {System.out.println("Òàêîãî èíäåêñà íå ñóùåñòâóåò");
+	} else {System.out.println("Ã’Ã ÃªÃ®Ã£Ã® Ã¨Ã­Ã¤Ã¥ÃªÃ±Ã  Ã­Ã¥ Ã±Ã³Ã¹Ã¥Ã±Ã²Ã¢Ã³Ã¥Ã²");
 	}
   } 
 }
