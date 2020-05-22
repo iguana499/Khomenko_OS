@@ -29,7 +29,7 @@ public class Kernel {
 		return result;
 	}
 	public void execute(int index) {
-		if (index<callsList.size()||index>0) {
+		if (index<callsList.size()&&index>0) {
 		try {
 			String curArgs = "";
 			for (int i = 0; i < callsList.get(index).getArgsListSize(); i++) {
