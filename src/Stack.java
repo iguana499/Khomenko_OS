@@ -21,7 +21,7 @@ public class Stack {
 	{
 		if(isEmpty())
 		{
-			throw new Exception("В стеке пусто");
+			throw new Exception("Нет необходимого количества аргументов");
 		}
 		else
 			topIndex--;

@@ -29,6 +29,7 @@ public class Kernel {
 		return result;
 	}
 	public void execute(int index) {
+		if (index<callsList.size()) {
 		try {
 			String curArgs = "";
 			for (int i = 0; i < callsList.get(index).getArgsListSize(); i++) {
@@ -47,5 +48,7 @@ public class Kernel {
 			ex.printStackTrace();
 			System.out.println("Количество аргументов недостаточно");
 		}
+	} else {System.out.println("Такого индекса не существует");
 	}
+  } 
 }
