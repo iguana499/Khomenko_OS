@@ -4,10 +4,12 @@ public class Flow {
 	private String name;
 	private int currentTime;
 	private int finishTime;
+	private int priority;
 	
-	public Flow(String name)
+	public Flow(String name, int priority)
 	{
 		this.name=name;
+		this.priority=priority;
 		generateFlow();
 		printFlow();
 	}
@@ -39,5 +41,13 @@ public class Flow {
 	public String getName()
 	{
 		return name;
+	}
+
+	public int getPriority() {
+		return priority;
+	}
+
+	public void setPriority(int priority) {
+		this.priority = priority;
 	}
 }

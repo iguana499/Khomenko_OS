@@ -35,21 +35,25 @@ public class Kernel {
 	{
 		while (!flowManager.WorkOver())
 		{
-		Flow flowInWork=flowManager.nextFlow();
-			if(flowInWork==null)
-		{
-				System.out.println(" Work ended");
-		}
-		System.out.println(flowInWork.getName()+" Working");
-		if(flowInWork.startWork(time))
-		{
-			System.out.println(flowInWork.getName()+" Work ended");
-		}
-		else
-		{
-			System.out.println(flowInWork.getName()+" Not enough Time, switching flow");
-			flowManager.flowEnds(flowInWork);
-		}
+			int max=flows.getFirst().getPriority();
+			Flow flowInWork=flows.getFirst();
+			for (Flow flow : flows) {
+						if(max<flow.getPriority()) {
+							max=flow.getPriority();
+							flowInWork=flow;
+						}
+			}
+			flowInWork.setPriority(flowInWork.getPriority()-1);
+			System.out.println(flowInWork.getName()+" Working");
+			if(flowInWork.startWork(time))
+			{
+				System.out.println(flowInWork.getName()+" Work ended");
+			}
+			else
+			{
+				System.out.println(flowInWork.getName()+" Not enough Time, switching flow");
+				flowManager.flowEnds(flowInWork);
+			}
 		}
 	}
 	

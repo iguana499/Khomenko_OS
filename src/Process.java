@@ -13,9 +13,11 @@ public class Process {
 	
 	private void createFlows(int count)
 	{
+		Random rnd=new Random();
 		for(int i=0;i<count;i++)
 		{
-			flows.add(new Flow(name+" "+String.valueOf(i)));
+			
+			flows.add(new Flow(name+" "+String.valueOf(i), rnd.nextInt(3)));
 		}
 	}
 	public String getName()
