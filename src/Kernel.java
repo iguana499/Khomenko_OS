@@ -12,7 +12,7 @@ public class Kernel {
 	public Kernel()
 	{
 	Random rand=new Random();
-	CreateProcess(rand.nextInt(3));
+	CreateProcess(rand.nextInt(10));
 	getAllFlows();
 	}
 	private void getAllFlows()
@@ -54,8 +54,10 @@ public class Kernel {
 				System.out.println(flowInWork.getName()+" Not enough Time, switching flow");
 				flowManager.flowEnds(flowInWork);
 			}
+			Random rand=new Random();
+			for (Flow flow : flows) {
+				flow.setPriority(rand.nextInt(10));
+				}
+			}
 		}
-	}
-	
-	
 }
