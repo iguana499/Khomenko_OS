@@ -3,21 +3,22 @@ public class Page {
 	
 	private int startAdress;
 	private int endAdress;
-	private int usage;
-	public Page(int startAdress , int endAdress) {
+	private boolean secondChance;
+	public Page(int startAdress , int endAdress, boolean secondChance) {
 		this.endAdress = endAdress;
-		this.startAdress = startAdress;		
+		this.startAdress = startAdress;	
+		this.secondChance = secondChance;
 	}	
-	public void setUsage(int usage) {
-		this.usage = usage;		
-	}
-	public int getUsages() {
-		return usage;
-	}
 	public int getStartAdress(){
 		return startAdress;
 	}
 	public int getEndAdress() {
 		return endAdress;
+	}
+	public boolean isSecondChance() {
+		return secondChance;
+	}
+	public void setSecondChance(boolean secondChance) {
+		this.secondChance = secondChance;
 	}
 }

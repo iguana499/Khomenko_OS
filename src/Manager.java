@@ -1,11 +1,14 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.text.StyledEditorKit.ForegroundAction;
+
 
 public class Manager {
 	Random rnd = new Random();
 	private int memorySize = 2048;
 	private int pageSize = 256;
+	private boolean secondChance;
 	private ArrayList<Page> phisicalMemory = new ArrayList<Page>();
 	//private ArrayList<Integer> usages = new ArrayList<Integer>();
 	private ArrayList<Page> virtualMemory = new ArrayList<Page>();	
@@ -13,15 +16,23 @@ public class Manager {
 		int start=0;
 		int finish=start + pageSize;
 		for (int i = 0; i < memorySize/pageSize/2 ; i++) {
-			virtualMemory.add(new Page(start,finish));
+			switch (rnd.nextInt(1)) {
+			case 0:
+				secondChance = false;
+				break;
+			case 1:
+				secondChance = true;
+
+			default:
+				break;
+			}
+			virtualMemory.add(new Page(start,finish, secondChance));
 			//usages.add(rnd.nextInt(10)+1);
-			virtualMemory.get(i).setUsage(rnd.nextInt(10)+1);
 			start=finish;
 			finish = start + pageSize;
 		}
 		for (int i = 0; i < memorySize/pageSize/2 ; i++) {
-			phisicalMemory.add(new Page(start,finish));
-			phisicalMemory.get(i).setUsage(0);
+			phisicalMemory.add(new Page(start,finish, secondChance));
 			start=finish;
 			finish = start + pageSize;
 		}
@@ -35,7 +46,6 @@ public class Manager {
 						pickInPhisikalMemory=true;
 						System.out.println("возвращена страница из физической пам€ти " + i);
 						//usages.set(i,usages.get(i)+1);
-						phisicalMemory.get(i).setUsage(phisicalMemory.get(i).getUsages()+1);
 					}
 		}
 		if (!pickInPhisikalMemory) {
@@ -46,7 +56,6 @@ public class Manager {
 	public void getPageFromVirtualMemory(int adress) {
 		int needPageIndex = 0;
 		int replasePageIndex = 0;
-		int min = phisicalMemory.get(0).getUsages();
 		for (int i = 0; i < virtualMemory.size(); i++) {
 			 			if(adress <= virtualMemory.get(i).getEndAdress() 
 			 					&& adress >= virtualMemory.get(i).getStartAdress()){
@@ -54,12 +63,23 @@ public class Manager {
 			 					}
 		}
 		for (int i = 0; i < phisicalMemory.size(); i++) {
-			 if(phisicalMemory.get(i).getUsages() < min ) {
-				 min = phisicalMemory.get(i).getUsages();
 				 replasePageIndex = i;
 			 }
+		for (int i=0; i < virtualMemory.size(); i++) {
+			if (!virtualMemory.get(i).isSecondChance()) {
+				swapPages(i, replasePageIndex);
+				needPageIndex = i;
+				break;
+			}
+			else {
+				Page swap = null;
+				swap = virtualMemory.get(i);
+				virtualMemory.set(0,virtualMemory.get(virtualMemory.size())); 
+				virtualMemory.set(virtualMemory.size(), swap);
+				i=0;
+			}
 		}
-		swapPages(needPageIndex, replasePageIndex);
+
 		 System.out.println("в физическую пам€ть добавлена страница " + needPageIndex + " из виртуальной пам€ти  вместо страницы " + replasePageIndex);
 	}
 	public void swapPages(int needPageIndex,int replasePageIndex) {
@@ -68,7 +88,6 @@ public class Manager {
 		 virtualMemory.set(needPageIndex,phisicalMemory.get(replasePageIndex));
 		 phisicalMemory.set(replasePageIndex, swap);
 		 //usages.set(replasePageIndex,0);
-		 phisicalMemory.get(replasePageIndex).setUsage(0);
 	}
 	public void printMemory() {
 		System.out.println("==========‘изическа€ мам€ть==========");
