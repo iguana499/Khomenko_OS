@@ -1,3 +1,5 @@
+package os_4;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -24,7 +26,7 @@ public class WorkPhysMemory {
 	public void allocateMemoryForFile(File file) {
 		int size = file.getSize();
 		int countSectors=size/sizeSector;
-		Knot newKnot = new Knot();
+		Knot newKnot = new Knot(4);
 		if(size%sizeSector>0)
 			countSectors++;
 		for (int i = 0; i < place.length; i++) {

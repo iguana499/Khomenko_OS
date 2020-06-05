@@ -1,21 +1,51 @@
+package os_4;
+
 import java.util.ArrayList;
 
 public class Knot {
 
+	public Knot(int size) {
+		super();
+		this.size = size;
+	}
 	ArrayList<Cell> cells = new ArrayList<Cell>();
+	int size;
+	Knot knot;
 
 	public ArrayList<Cell> getCells() {
-		return cells;
+		if(knot==null) {
+			return cells;
+		}
+		else {
+			ArrayList<Cell> tmp = new ArrayList<Cell>();
+			tmp.addAll(cells);
+			tmp.addAll(knot.getCells());
+			return tmp;
+		}
 	}
 
-	public void setCells(ArrayList<Cell> cells) {
+	 private void setCells(ArrayList<Cell> cells) {
 		this.cells = cells;
 	}
 	
 	public void addCell(Cell cell) {
-		cells.add(cell);
+		if(cells.size()+1>size && knot==null) {
+			knot=new Knot(size);
+		}
+		else if(cells.size()+1>size) {
+			knot.addCell(cell);
+		}
+		else
+		{
+			cells.add(cell);
+		}
 	}
-	public void delCell(Cell cell) {
-		cells.remove(cell);
+	public void delCell(Cell cell) {		
+		if(cells.contains(cell)) {
+			cells.remove(cell);
+		}
+		else {
+			knot.delCell(cell);
+		}
 	}
 }
